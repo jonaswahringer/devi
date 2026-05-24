@@ -21,10 +21,10 @@ devi.conf(key, options)
 ## Supported
 - browsers (mobile/desktop)
     - chromium
-    - safari
-    - firefox
+    - ~~safari~~ 
+    - ~~firefox~~
 - devices
-    - tbd
+    - all of which have access to a filesystem ^^
   
 ––––––––––––––
 wahringer – oss
