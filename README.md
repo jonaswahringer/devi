@@ -26,5 +26,5 @@ devi.conf(key, options)
 - devices
     - all of which have access to a filesystem ^^
   
-––––––––––––––
+-----------------
 wahringer – oss
