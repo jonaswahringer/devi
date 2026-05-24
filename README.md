@@ -1,10 +1,10 @@
-## On-device cache library
+# On-device cache library
 
 - optimistic caching
 - abstraction to hide impl. details, e.g., localStorage/sessionSotrage/indexDb etc.
 - FE & BE contract i.e. standard
 
-<bold>usage:</bold>
+## Usage
 ```ts
 devi.cache(key, payload, options)
 devi.get(key)
@@ -13,17 +13,18 @@ devi.del(key)
 devi.conf(key, options)
 ```
 
-<bold>streaming:</bold>
+## Streaming
 ```ts
 // TODO
 ```
 
-supported
+## Supported
 - browsers (mobile/desktop)
     - chromium
     - safari
     - firefox
 - devices
     - tbd
+  
 ––––––––––––––
 wahringer – oss
