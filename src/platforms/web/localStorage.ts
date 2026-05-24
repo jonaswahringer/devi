@@ -21,7 +21,7 @@ export class LocalStorageCache<T> implements ICache<T> {
     
     get(key: string, options?: Options): Promise<T | undefined> {
         this._rejectIfNotAvailable();
-        let value = localStorage.getItem(key);
+        let value = window.localStorage.getItem(key);
         if (value == null) {
             return Promise.resolve(undefined);
         }
@@ -33,7 +33,7 @@ export class LocalStorageCache<T> implements ICache<T> {
     
     delete(key: string): Promise<void> {
         this._rejectIfNotAvailable();
-        localStorage.removeItem(key);
+        window.localStorage.removeItem(key);
         return Promise.resolve();
     }
 
