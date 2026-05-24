@@ -25,5 +25,5 @@ supported
     - firefox
 - devices
     - tbd
-
-oss, githubdevice cache library
+––––––––––––––
+wahringer – oss
