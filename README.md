@@ -1,13 +1,11 @@
-## device cache library
-
-devi-cache
+## On-device cache library
 
 - optimistic caching
-- FE & BE contract i.e. standard
 - abstraction to hide impl. details, e.g., localStorage/sessionSotrage/indexDb etc.
 configurable
+- FE & BE contract i.e. standard
 
-clean invocation:
+<bold>usage:</bold>
 ```ts
 devi.cache(key, payload, options)
 devi.get(key)
@@ -16,7 +14,10 @@ devi.del(key)
 devi.conf(key, options)
 ```
 
-<bold>streaming</bold>
+<bold>streaming:</bold>
+```ts
+// TODO
+```
 
 supported
 - browsers (mobile/desktop)
