@@ -1,4 +1,4 @@
-# On-device cache library
+# On-device caching library
 
 - optimistic caching
 - abstraction to hide impl. details, e.g., localStorage/sessionSotrage/indexDb etc.
