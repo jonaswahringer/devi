@@ -2,7 +2,6 @@
 
 - optimistic caching
 - abstraction to hide impl. details, e.g., localStorage/sessionSotrage/indexDb etc.
-configurable
 - FE & BE contract i.e. standard
 
 <bold>usage:</bold>
