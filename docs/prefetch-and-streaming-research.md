@@ -2,7 +2,7 @@
 
 Research synthesis for **local-first render → background/stream refresh → clear freshness UI**, with emphasis on TypeScript frontends, the T3 ecosystem, and mapping to the **devi** on-device cache library.
 
-**devi is designed to sit under [@tanstack/react-query](https://tanstack.com/query)** (TanStack Query, formerly React Query): Query owns orchestration; devi owns durable T0 storage. See [README](../README.md#tanstack-query-integration) for the canonical `useQuery` integration.
+**devi is designed to sit under [@tanstack/react-query](https://tanstack.com/query)** (TanStack Query, formerly React Query): Query owns orchestration; devi owns durable T0 storage. See [USAGE.md](../USAGE.md#tanstack-query-integration) for the canonical `useQuery` integration.
 
 ---
 
@@ -402,7 +402,7 @@ Current types in `src/defs/cache.ts`:
 
 1. **`initialData`** for incomplete local snapshots (pollutes cache).
 2. Full-page spinner on refetch when data exists (use **`isRefetching`**).
-3. Persisting **`placeholderData`**.
+3. Treating **`placeholderData`** as durable cache (use **devi** + `read()` for disk, `queryFn` for Query truth — see [USAGE.md § TanStack Query integration](../USAGE.md#tanstack-query-integration)). Not: `read()` + `placeholderData` itself.
 4. Two sources of truth (RSC props + unrelated cache keys).
 5. Treating SSE token stream like SWR entity cache without checkpoints.
 6. **`localStorage`** for large lists — use IndexedDB or SQLite.
@@ -416,4 +416,4 @@ Current types in `src/defs/cache.ts`:
 3. **Signal freshness** with `isPlaceholderData`, `isRefetching`, `isStale`, and timestamps.
 4. **Reserve true streaming** for incremental domains; `StreamCache` = subscribe + reducer + resume.
 
-T3’s lesson: **hydrate a shared cache early** (server or router), then let **TanStack Query** manage eventual consistency — **devi** is the **device-local T0 layer** under that cache (see [README § TanStack Query integration](../README.md#tanstack-query-integration)).
+T3’s lesson: **hydrate a shared cache early** (server or router), then let **TanStack Query** manage eventual consistency — **devi** is the **device-local T0 layer** under that cache (see [USAGE.md § TanStack Query integration](../USAGE.md#tanstack-query-integration)).
