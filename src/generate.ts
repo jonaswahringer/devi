@@ -19,7 +19,7 @@ function isServerRuntime(runtime: AppRuntime): boolean {
 
 export class CacheFactory {
 
-    static create<T>(type: CacheType, platform: PlatformDetails, group?: string, options?: Options): ICache<T> {
+    static create(type: CacheType, platform: PlatformDetails, group?: string, options?: Options): ICache {
 
         const runtime = platform.runtime;
         const browser = platform.browser;
@@ -48,27 +48,27 @@ export class CacheFactory {
             case 'sync':
                 if (runtime === 'web') {
                     if (options?.retentionPolicy === 'session') {
-                        return new SessionStorageCache<T>(options);
+                        return new SessionStorageCache(options);
                     }
-                    return new LocalStorageCache<T>(options);
+                    return new LocalStorageCache(options);
                 }
                 if (isMobileRuntime(runtime)) {
-                    return new ExpoCache<T>(options);
+                    return new ExpoCache(options);
                 }
                 if (isServerRuntime(runtime)) {
-                    return new SqliteCache<T>(options);
+                    return new SqliteCache(options);
                 }
                 break;
 
             case 'async':
                 if (runtime === 'web') {
-                    return new IndexedDbCache<T>(options);
+                    return new IndexedDbCache(options);
                 }
                 if (isMobileRuntime(runtime)) {
-                    return new ExpoCache<T>(options);
+                    return new ExpoCache(options);
                 }
                 if (isServerRuntime(runtime)) {
-                    return new SqliteCache<T>(options);
+                    return new SqliteCache(options);
                 }
                 break;
 

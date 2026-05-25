@@ -2,7 +2,7 @@ import { CacheFactory } from "../src/generate";
 
 console.log("Creating test sync cache...")
 
-const cache = CacheFactory.create<string>('sync', {
+const cache = CacheFactory.create('sync', {
         runtime: 'web',
         browser: {
             name: 'chrome',

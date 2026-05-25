@@ -1,35 +1,35 @@
-import { DEFAULT_GROUP, ICache } from "../../defs/cache";
+import { CacheValue, DEFAULT_GROUP, ICache } from "../../defs/cache";
 import { Options } from "../../defs/options";
+import { CacheOps } from "../../engine/ops";
+import { DexieStore } from "./dexieStore";
 import { OpfsBlobStore } from "./opfsBlobStore";
-import { OpfsSqliteStore } from "./opfsSqliteStore";
 
 /**
- * Async web cache backed by `OpfsSqliteStore` and `OpfsBlobStore`.
+ * Async web cache backed by `DexieStore` (IndexedDB) and `OpfsBlobStore`.
  */
-export class IndexedDbCache<T> implements ICache<T> {
+export class IndexedDbCache implements ICache {
 
     group: string;
-    /** `cache_entries` SQL access (TTL, LRU, row metadata). */
-    private readonly sqlite: OpfsSqliteStore;
+    private readonly ops: CacheOps;
     /** Relative-path blob I/O for file-backed values. */
     private readonly blobs: OpfsBlobStore;
 
     constructor(options: Options) {
         this.group = options.group || DEFAULT_GROUP;
-        this.sqlite = new OpfsSqliteStore(options);
+        this.ops = new CacheOps(new DexieStore(options), this.group);
         this.blobs = new OpfsBlobStore(options);
     }
 
-    get(key: string, options?: Options): Promise<T | undefined> {
-        throw new Error("Method not implemented.");
+    get(key: string, options?: Options): Promise<CacheValue | undefined> {
+        return this.ops.get(key, options);
     }
 
-    set(key: string, value: T, options?: Options): Promise<void> {
-        throw new Error("Method not implemented.");
+    set(key: string, value: CacheValue, options?: Options): Promise<void> {
+        return this.ops.set(key, value, options);
     }
 
-    delete(key: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    delete(key: string, options?: Options): Promise<void> {
+        return this.ops.delete(key, options);
     }
 
 }

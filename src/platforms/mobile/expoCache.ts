@@ -1,4 +1,4 @@
-import { DEFAULT_GROUP, ICache } from "../../defs/cache";
+import { DEFAULT_GROUP, CacheValue, ICache } from "../../defs/cache";
 import { Options } from "../../defs/options";
 import { ExpoBlobStore } from "./expoBlobStore";
 import { ExpoSqliteStore } from "./expoSqliteStore";
@@ -6,7 +6,7 @@ import { ExpoSqliteStore } from "./expoSqliteStore";
 /**
  * Mobile cache backed by `ExpoSqliteStore` and `ExpoBlobStore`.
  */
-export class ExpoCache<T> implements ICache<T> {
+export class ExpoCache implements ICache {
 
     group: string;
     /** `cache_entries` SQL access (TTL, LRU, row metadata). */
@@ -20,11 +20,11 @@ export class ExpoCache<T> implements ICache<T> {
         this.blobs = new ExpoBlobStore(options);
     }
 
-    get(key: string, options?: Options): Promise<T | undefined> {
+    get(key: string, options?: Options): Promise<CacheValue | undefined> {
         throw new Error("Method not implemented.");
     }
 
-    set(key: string, value: T, options?: Options): Promise<void> {
+    set(key: string, value: CacheValue, options?: Options): Promise<void> {
         throw new Error("Method not implemented.");
     }
 
