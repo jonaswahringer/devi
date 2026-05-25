@@ -29,7 +29,7 @@ export const getDefaultOptions = (group: string): Options => {
  * Unsure how to implement user-creatable groups effectively.
  * In the meantime, we'll define a few groups to use out-of-the-box .
  */
-// export interface ICacheGroup<T> {
+// export interface ICacheGroup {
 //     /**
 //      * Create a cache group, with the specified identifier.
 //      * Uses the provided options to configure the cache-layer.

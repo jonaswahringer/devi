@@ -4,7 +4,10 @@ export type CacheType = 'sync' | 'async' | 'stream'
 
 export const DEFAULT_GROUP = 'default';
 
-export interface ICache<T> {
+/** Serialized JSON string or binary blob payload. */
+export type CacheValue = string | Uint8Array;
+
+export interface ICache {
 
     /**
      * The group which the cache belongs to, if not overriden in options.
@@ -14,16 +17,16 @@ export interface ICache<T> {
     /**
      * Set a value in the cache.
      * @param key - object identifier
-     * @param value - value to cache
+     * @param value - JSON string or blob payload
      * @param options - cache options, overrides the group options, e.g., ttl
      */
-    set(key: string, value: T, options?: Options): Promise<void>;
+    set(key: string, value: CacheValue, options?: Options): Promise<void>;
 
     /**
      * @param key - object identifier
      * @param options - cache options; set `refreshTtl: true` to slide TTL / touch LRU on read
      */
-    get(key: string, options?: Options): Promise<T | undefined>;
+    get(key: string, options?: Options): Promise<CacheValue | undefined>;
 
     /**
      * Delete a value from the cache.
@@ -31,16 +34,4 @@ export interface ICache<T> {
      */
     delete(key: string): Promise<void>;
 
-}
-
-export interface SyncCache<T> extends ICache<T> {
-    readonly type: 'sync';
-}
-
-export interface AsyncCache<T> extends ICache<T> {
-    readonly type: 'async';
-}
-
-export interface StreamCache<T> extends ICache<T> {
-    readonly type: 'stream';
 }
