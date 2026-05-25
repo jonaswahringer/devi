@@ -17,7 +17,7 @@ export const getDefaultOptions = (group: string): Options => {
                 group: 'static',
                 retentionPolicy: 'persistent',
                 scope: 'global',
-                ttl: TTL.MINUTE,
+                ttl: TTL.NO_EXPIRATION,
                 async: false,
             };
         default:
