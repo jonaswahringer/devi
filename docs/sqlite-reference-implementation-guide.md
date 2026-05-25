@@ -49,7 +49,7 @@ CREATE INDEX idx_cache_lru ON cache_entries(cache_group, last_accessed);
 |-----------------|-------------------|
 | `group` | `cache_group` |
 | `ttl: 0` | `expires_at = NULL` |
-| `ttl: N` | `expires_at = now + N` on set; reset on `getThenRefresh` |
+| `ttl: N` | `expires_at = now + N` on set; reset on `get` when `refreshTtl: true` |
 
 ---
 
@@ -108,7 +108,7 @@ Composes `OpfsSqliteStore` + `OpfsBlobStore` and implements `ICache`:
 
 1. `set` — serialize → inline or blob → upsert row → evict if over limit
 2. `get` — select row; read `inline_value` or delegate to blob store
-3. `getThenRefresh` — same as `get`, then update `last_accessed` and `expires_at`
+3. `get` with `options.refreshTtl: true` — after read, update `last_accessed` and `expires_at`
 4. `delete` — select `file_path`, delete row, delete blob if present
 
 ---
