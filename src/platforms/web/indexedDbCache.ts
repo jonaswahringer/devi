@@ -5,7 +5,6 @@ import { OpfsSqliteStore } from "./opfsSqliteStore";
 
 /**
  * Async web cache backed by `OpfsSqliteStore` and `OpfsBlobStore`.
- * `get`, `set`, `getThenRefresh`, and `delete` are not implemented yet.
  */
 export class IndexedDbCache<T> implements ICache<T> {
 
@@ -22,10 +21,6 @@ export class IndexedDbCache<T> implements ICache<T> {
     }
 
     get(key: string, options?: Options): Promise<T | undefined> {
-        throw new Error("Method not implemented.");
-    }
-
-    getThenRefresh(key: string, options?: Options): Promise<T | undefined> {
         throw new Error("Method not implemented.");
     }
 

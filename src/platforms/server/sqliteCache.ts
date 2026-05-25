@@ -5,7 +5,6 @@ import { BunSqliteStore } from "./bunSqliteStore";
 
 /**
  * Server cache backed by `BunSqliteStore` and `BunBlobStore`.
- * `get`, `set`, `getThenRefresh`, and `delete` are not implemented yet.
  */
 export class SqliteCache<T> implements ICache<T> {
 
@@ -22,10 +21,6 @@ export class SqliteCache<T> implements ICache<T> {
     }
 
     get(key: string, options?: Options): Promise<T | undefined> {
-        throw new Error("Method not implemented.");
-    }
-
-    getThenRefresh(key: string, options?: Options): Promise<T | undefined> {
         throw new Error("Method not implemented.");
     }
 

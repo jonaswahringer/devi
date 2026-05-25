@@ -3,8 +3,8 @@ import { CacheNotAvailableError } from "../../defs/errors";
 import { Options } from "../../defs/options";
 
 /**
- * Sync cache backed by `window.localStorage`. Keys and values are JSON strings.
- * `getThenRefresh` is not implemented.
+ * Sync cache backed by `window.localStorage`. 
+ * Keys and values are JSON strings.
  */
 export class LocalStorageCache<T> implements ICache<T> {
     
@@ -28,10 +28,7 @@ export class LocalStorageCache<T> implements ICache<T> {
         }
         return Promise.resolve(JSON.parse(value));
     }
-    getThenRefresh(key: string, options?: Options): Promise<T | undefined> {
-        throw new Error("Method not implemented.");
-    }
-    
+
     delete(key: string): Promise<void> {
         this._rejectIfNotAvailable();
         window.localStorage.removeItem(key);

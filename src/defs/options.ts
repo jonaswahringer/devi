@@ -35,6 +35,13 @@ export interface Options {
      * @default 5 * TTL.MINUTE
      */
     ttl?: number;
+
+    /**
+     * On `get`, slide expiration and update LRU metadata (`last_accessed`, `expires_at`).
+     * Storage-layer only; does not trigger network revalidation (use TanStack Query for that).
+     * @default false
+     */
+    refreshTtl?: boolean;
     
     /**
      * Whether to use async/await syntax.

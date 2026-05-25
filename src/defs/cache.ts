@@ -20,19 +20,11 @@ export interface ICache<T> {
     set(key: string, value: T, options?: Options): Promise<void>;
 
     /**
-     * 
      * @param key - object identifier
-     * @param options - cache options, overrides the group options
+     * @param options - cache options; set `refreshTtl: true` to slide TTL / touch LRU on read
      */
     get(key: string, options?: Options): Promise<T | undefined>;
-   
-    /**
-     * Get a value from the cache and refresh the TTL.
-     * @param key - object identifier
-     * @param options - cache options, overrides the group options, e.g., ttl
-     */
-    getThenRefresh(key: string, options?: Options): Promise<T | undefined>;
-    
+
     /**
      * Delete a value from the cache.
      * @param key - object identifier
