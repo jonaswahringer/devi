@@ -3,7 +3,8 @@ import { CacheNotAvailableError } from "../../defs/errors";
 import { Options } from "../../defs/options";
 
 /**
- * Cache implementation for chrome's localStorage.
+ * Sync cache backed by `window.localStorage`. Keys and values are JSON strings.
+ * `getThenRefresh` is not implemented.
  */
 export class LocalStorageCache<T> implements ICache<T> {
     

@@ -1,4 +1,4 @@
-export type AppRuntime = "web" | "ios" | "android" | "native" | "unknown";
+export type AppRuntime = "web" | "ios" | "android" | "server" | "unknown";
 
 export type DeviceType =
   | "phone"
