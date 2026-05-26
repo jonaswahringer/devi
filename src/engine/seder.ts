@@ -1,5 +1,11 @@
 import { CacheValue } from "../defs/cache";
 
+/**
+ * Serialization/deserialization for cache values.
+ * We use a simple binary format to efficiently serialize json strings and binary blobs.
+ * The first byte is the tag, the rest of the bytes are the payload.
+ */
+
 const STRING_TAG = 0;
 const BINARY_TAG = 1;
 
