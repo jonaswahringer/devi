@@ -10,3 +10,9 @@ await cache.set("big", large);
 const read = await cache.get("big");
 
 console.log("blob round-trip:", read instanceof Uint8Array && read.byteLength === large.byteLength);
+console.log("blob size:", (read as Uint8Array).byteLength);
+console.log("blob content:", (read as Uint8Array).slice(0, 10));
+
+await cache.delete("big");
+const missing = await cache.get("big");
+console.log("missing:", missing);
