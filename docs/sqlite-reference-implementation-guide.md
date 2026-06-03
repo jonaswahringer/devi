@@ -8,15 +8,15 @@ Each platform cache is two stores:
 - **Blob store** — file-backed payloads when values exceed the inline threshold
 
 ```
-platforms/web/
-  indexedDbCache.ts    # composes OpfsSqliteStore + OpfsBlobStore
-  opfsSqliteStore.ts
-  opfsBlobStore.ts
-
-platforms/mobile/
-  expoCache.ts         # composes ExpoSqliteStore + ExpoBlobStore
-  expoSqliteStore.ts
-  expoBlobStore.ts
+platforms/
+  registry.ts                    # createPlatformCache(platform, options)
+  shared/createWorkerStores.ts   # worker-backed sqlite + blobs per runtime
+  shared/sqliteCache.ts
+  server/cacheWorker.ts          # worker entry
+  server/cacheWorkerSqlite.ts    # sqlite handlers (worker thread)
+  server/cacheWorkerBlob.ts      # filesystem blob handlers (worker thread)
+  web/cacheWorker.ts             # worker entry (stub → OPFS)
+  mobile/cacheWorker.ts          # worker entry (stub → Expo)
 ```
 
 Shared policy (serialization, TTL, eviction) belongs in `engine/`. Platform files only do I/O.

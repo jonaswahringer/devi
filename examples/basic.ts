@@ -1,22 +1,17 @@
 import { CacheFactory } from "../src/generate";
 
-console.log("Creating test sync cache...")
+console.log("Creating test sqlite cache...");
 
-const cache = CacheFactory.create('sync', {
-        runtime: 'web',
-        browser: {
-            name: 'chrome',
-            version: '1.0.0',
-            engine: 'chrome',
-            userAgent: 'chrome',
-        }
-    },
-    'static'
+const cache = CacheFactory.create(
+    "async",
+    { runtime: "server" },
+    "sqlite",
+    "static",
 );
 
-console.log("Cache created successfully")
+console.log("Cache created successfully");
 
-cache.set('test', 'value');
+await cache.set("test", "value");
 
-const testVal = cache.get('test');
-console.log("Test:", testVal)
+const testVal = await cache.get("test");
+console.log("Test:", testVal);

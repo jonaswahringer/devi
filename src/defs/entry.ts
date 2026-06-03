@@ -1,4 +1,4 @@
-/** Row shape shared by SQLite (`bun:sqlite`) and Dexie (IndexedDB). */
+/** Row shape for SQLite-backed cache stores across platforms. */
 export interface CacheEntry {
     cache_group: string;
     cache_key: string;

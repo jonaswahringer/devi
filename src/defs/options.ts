@@ -42,13 +42,5 @@ export interface Options {
      * @default false
      */
     refreshTtl?: boolean;
-    
-    /**
-     * Whether to use async/await syntax.
-     * If the cache implementation does not support async/await, this will be ignored.
-     * Typically depends on the workflow and data size.
-     * @default false
-     */
-    async?: boolean;
-    
+
 }

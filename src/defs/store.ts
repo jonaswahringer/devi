@@ -1,4 +1,4 @@
-import { CacheEntry } from "./entry";
+import type { CacheEntry } from "./entry";
 
 export interface CacheStore {
     getEntry(group: string, key: string): Promise<CacheEntry | undefined>;

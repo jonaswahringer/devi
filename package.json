@@ -8,7 +8,5 @@
   "devDependencies": {
     "@types/bun": "latest"
   },
-  "dependencies": {
-    "dexie": "^4.4.2"
-  }
+  "dependencies": {}
 }

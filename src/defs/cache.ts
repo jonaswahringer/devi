@@ -13,6 +13,7 @@ export interface ICache {
      * The group which the cache belongs to, if not overriden in options.
      */
     group: string;
+    worker?: Worker;
      
     /**
      * Set a value in the cache.

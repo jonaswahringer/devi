@@ -19,7 +19,7 @@ const cache = CacheFactory.create<Post>('async', platform, 'default', {
 });
 ```
 
-Types: `sync` (localStorage / sessionStorage / server SQLite), `async` (IndexedDB / OPFS on web). See `CacheFactory` in `src/generate.ts` for runtime routing.
+All platforms use SQLite (`driver: "sqlite"`). See `CacheFactory` in `src/generate.ts` for runtime routing (Bun on server, OPFS WASM on web, Expo on mobile).
 
 ## Cache API (`ICache`)
 

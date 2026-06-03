@@ -1,0 +1,35 @@
+General
+- clean and simple on device caching
+- T0 layer
+- dynamic json and static blob data
+- ETag support
+- integrations
+   - prim.: tanstack-query as fetching/orchestration layer
+- standalone
+    - ?
+
+External Deps
+- bun:sqlite / sqlite-wasm (OPFS on web)
+
+Components
+- data access layer
+    - abstracts pain of lower level libraries
+- data storage layer
+    - json: sqlite (all platforms)
+    - blob: opfs
+
+Interface
+----------
+- create()
+- configure()
+-----------
+- get()
+- set()
+- invalidate()
+- delete()
+
+Problems
+- how to invalidate data? >ETag (304)
+- how to select appropriate storage? >Auto-configure algorithm + selection
+- can we allow changing configurations to the caching layer without breaking underlying details and losing data? >only make selected properties (e.g., default-ttl) configurable
+- how do we ensure performance and avoid blocking the main thread? >worker(-pool)

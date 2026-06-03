@@ -10,7 +10,6 @@ export const getDefaultOptions = (group: string): Options => {
                 retentionPolicy: 'persistent',
                 scope: 'global',
                 ttl: TTL.MINUTE,
-                async: false,
             };
         case 'static':
             return {
@@ -18,7 +17,6 @@ export const getDefaultOptions = (group: string): Options => {
                 retentionPolicy: 'persistent',
                 scope: 'global',
                 ttl: TTL.NO_EXPIRATION,
-                async: false,
             };
         default:
             throw new Error(`Invalid group: ${group}`);
