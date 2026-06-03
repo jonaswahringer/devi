@@ -1,7 +1,7 @@
 export { WorkerBackedBlobStore } from "./backedBlobStore";
 export { WorkerBackedStore } from "./backedStore";
 export { worker } from "./global";
-export { WorkerPool, workerPool } from "./pool";
+export { WorkerPool, resetWorkerPoolForTests, workerPool } from "./pool";
 export type {
     BlobDeletePayload,
     BlobReadPayload,

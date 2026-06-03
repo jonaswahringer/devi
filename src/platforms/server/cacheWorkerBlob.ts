@@ -19,6 +19,11 @@ export function init(blobRootPath: string): void {
     blobRoot = blobRootPath;
 }
 
+/** @internal Clear the blob root (test isolation). */
+export function resetForTests(): void {
+    blobRoot = null;
+}
+
 function resolveSafePath(relativePath: string): string {
     if (!blobRoot) {
         throw new Error("Blob store not initialized");

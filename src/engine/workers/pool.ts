@@ -114,6 +114,19 @@ export class WorkerPool {
         this.rejectAllPending(new Error(`Worker ${id} terminated`));
     }
 
+    /** @internal Terminate every active worker session. */
+    terminateAll(): void {
+        for (const id of [...this.sessions.keys()]) {
+            this.terminate(id);
+        }
+    }
+
+}
+
+/** @internal Reset the process-wide pool singleton (test isolation). */
+export function resetWorkerPoolForTests(): void {
+    workerPool?.terminateAll();
+    workerPool = null;
 }
 
 function normalizeRpcResponse(msg: Record<string, unknown>): {

@@ -5,6 +5,13 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "test": "bun test",
+    "test:unit": "bun test tests/unit",
+    "test:integration": "bun test tests/integration",
+    "test:rpc": "bun test tests/rpc",
+    "test:concurrency": "bun test tests/concurrency"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

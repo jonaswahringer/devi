@@ -27,6 +27,12 @@ export function init(dbPath: string): void {
     }
 }
 
+/** @internal Close the database handle (test isolation). */
+export function resetForTests(): void {
+    db?.close();
+    db = null;
+}
+
 function normalizeEntry(row: CacheEntry): CacheEntry {
     if (row.inline_value != null && !(row.inline_value instanceof Uint8Array)) {
         row.inline_value = new Uint8Array(row.inline_value as ArrayLike<number>);
