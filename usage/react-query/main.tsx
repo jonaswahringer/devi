@@ -3,15 +3,15 @@
  *
  * Dev server: bun run usage → http://localhost:8080/react-query
  */
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { createRoot } from "react-dom/client";
 import { DeviProvider } from "@devi/react";
 import {
   deviQueryFn,
   read,
   useLocalFirstQuery,
 } from "@devi/react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { createRoot } from "react-dom/client";
 
 type Post = { id: number; title: string; body: string };
 
@@ -27,10 +27,17 @@ async function fetchPost(): Promise<Post> {
 }
 
 function ManualPost() {
+  const seed = useQuery({
+    queryKey: ["__devi__", DEVI_KEY],
+    queryFn: () => read<Post>(DEVI_KEY),
+    staleTime: Infinity,
+  });
+
   const { data, isPlaceholderData, isFetching } = useQuery({
     queryKey: ["post-manual", POST_ID],
-    placeholderData: () => read<Post>(DEVI_KEY),
+    ...(seed.data !== undefined ? { placeholderData: seed.data } : {}),
     queryFn: deviQueryFn(DEVI_KEY, fetchPost),
+    enabled: !seed.isLoading,
     staleTime: 30_000,
   });
 

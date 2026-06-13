@@ -37,7 +37,6 @@ function set(key: string, value: string): Promise<void> {
     console.log('set', key, value);
     return Promise.resolve();
 }
-
 function del(key: string): Promise<void> {
     // TODO
     console.log('del', key);

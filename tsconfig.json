@@ -4,9 +4,10 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "strict": true,
+    "jsx": "react-jsx",
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["bun-types"]
+    "types": ["bun"]
   },
   "include": ["packages/**/*", "src/**/*", "usage/**/*", "tests/**/*"]
 }

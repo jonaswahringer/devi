@@ -3,9 +3,9 @@
  *
  * Dev server: bun run usage → http://localhost:8080/react
  */
+import { DeviProvider, get, set, useDevi } from "@devi/react";
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { DeviProvider, get, set, useDevi } from "@devi/react";
 
 function CachePanel() {
   const ops = useDevi();
