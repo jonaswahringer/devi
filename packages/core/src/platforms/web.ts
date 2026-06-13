@@ -4,7 +4,10 @@ export class WebWorkerHost implements DeviWorkerHost {
 
     spawn(id: string): DeviWorker {
         
-        const worker = new Worker(new URL('./web/worker.ts', import.meta.url), { name: id});
+        const worker = new Worker(new URL("./web/worker.ts", import.meta.url), {
+            name: id,
+            type: "module",
+        });
 
         let handler: ((data: DeviWorkerReply) => void) | null = null;
         

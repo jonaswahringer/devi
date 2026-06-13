@@ -9,7 +9,8 @@
     "test:integration": "bun test tests/integration",
     "test:rpc": "bun test tests/rpc",
     "test:concurrency": "bun test tests/concurrency",
-    "usage": "bun usage/server.ts"
+    "usage": "vite --config usage/vite.config.ts",
+    "usage:bun": "bun usage/server.ts"
   },
   "devDependencies": {
     "@devi/core": "workspace:*",
@@ -19,7 +20,9 @@
     "@types/bun": "latest",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "vite": "^7.2.0"
   }
 }
