@@ -1,8 +1,11 @@
 {
   "name": "devi",
   "devDependencies": {
+    "@tanstack/react-query": "^5.101.0",
     "@types/bun": "latest",
-    "@types/react": "^19.0.0"
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -20,7 +23,8 @@
     "test:unit": "bun test tests/unit",
     "test:integration": "bun test tests/integration",
     "test:rpc": "bun test tests/rpc",
-    "test:concurrency": "bun test tests/concurrency"
+    "test:concurrency": "bun test tests/concurrency",
+    "usage": "bun usage/server.ts"
   },
   "type": "module"
 }

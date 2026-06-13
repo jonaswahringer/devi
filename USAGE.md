@@ -2,117 +2,125 @@
 
 ## Install
 
-devi is consumed from this repo (or your published package). TanStack Query is a **peer** — install it in the app:
+Install devi from this repo (or your published package). React and TanStack Query are **peers** for the adapter subpaths:
 
 ```bash
-npm install @tanstack/react-query
+npm install react @tanstack/react-query
 ```
 
-## Create a cache
+## Package entry points
+
+| Import | Use when |
+|--------|----------|
+| `devi` / `devi/core` | Framework-free — workers, `createDevi`, direct `DeviOps` |
+| `devi/react` | React app — `<DeviProvider>`, context helpers (`get`, `set`, …) |
+| `devi/react-query` | TanStack Query — `read`, `deviQueryFn`, `useLocalFirstQuery` |
+
+## Core (`devi/core`)
+
+No React required. Create an ops instance and call it directly:
 
 ```ts
-import { CacheFactory } from 'devi-cache';
+import { createDevi } from "devi/core";
 
-const cache = CacheFactory.create<Post>('async', platform, 'default', {
-  ttl: 5 * 60 * 1000,
-  retentionPolicy: 'persistent',
+const ops = createDevi("web");
+
+await ops.set("user:1", {
+  key: "user:1",
+  value: JSON.stringify({ name: "Ada" }),
+  lastAccessed: Date.now(),
+  metadata: {},
 });
+
+const entry = await ops.get("user:1");
 ```
 
-All platforms use SQLite (`driver: "sqlite"`). See `CacheFactory` in `src/generate.ts` for runtime routing (Bun on server, OPFS WASM on web, Expo on mobile).
+CLI example: `bun usage/core.ts`
 
-## Cache API (`ICache`)
+Run the dev server: `bun run usage` → http://localhost:8080/
 
-```ts
-await cache.set(key, value, options?)
-await cache.get(key, options?)       // pass { refreshTtl: true } to slide TTL / LRU (SQLite)
-await cache.delete(key)
+## React (`devi/react`)
+
+Wrap your app once. Context helpers throw if used outside the provider:
+
+```tsx
+import { DeviProvider, get, set, useDevi } from "devi/react";
+
+function App() {
+  return (
+    <DeviProvider>
+      <Dashboard />
+    </DeviProvider>
+  );
+}
+
+function Dashboard() {
+  const ops = useDevi(); // or get/set from "devi/react"
+  // ...
+}
 ```
 
-## TanStack Query integration {#tanstack-query-integration}
+Browser example: `bun usage/server.ts` → http://localhost:8080/react
 
-### Canonical `useQuery` pattern
+## TanStack Query (`devi/react-query`)
 
-```ts
-import { useQuery } from '@tanstack/react-query';
-import { read, CacheFactory } from 'devi-cache';
-import { api } from './api';
+Requires `<DeviProvider>` above your query tree (same as `QueryClientProvider`).
 
-const cache = CacheFactory.create<Post>('async', platform);
-
-useQuery({
-  queryKey: ['post', id],
-  placeholderData: () => read(cache, `post:${id}`), // devi persists; Query only borrows for first paint
-  queryFn: async () => {
-    const fresh = await api.getPost(id);
-    await cache.set(`post:${id}`, fresh);          // write-through to devi
-    return fresh;                                  // Query cache gets real data
-  },
-});
-```
-
-### Who owns what (not “persisting placeholderData”)
+### Who owns what
 
 | Store | Role |
 |-------|------|
-| **devi** | Durable local copy (survives reload) — `cache.set`, SQLite, etc. |
-| **`placeholderData`** | Bridge into Query for one fetch cycle — `read(cache, key)` |
+| **devi** | Durable local copy (survives reload) — written by `deviQueryFn` |
+| **`placeholderData`** | Bridge into Query for first paint — seeded via `read()` |
 | **Query cache after `queryFn`** | In-memory server truth until stale / invalidated |
 
-- **Persist on disk** → devi.
-- **Borrow for UI while fetching** → Query `placeholderData` + `read()`.
-- **Authoritative after fetch** → `queryFn` result in the Query cache.
+TanStack Query does **not** persist `placeholderData`. Only devi should hold data across reloads.
 
-TanStack Query does **not** persist `placeholderData`. Only devi (or SSR `dehydrate` / deliberate `setQueryData`) should hold data across reloads.
+### Manual `useQuery` pattern
 
-**Anti-pattern:** using `initialData` or `persistQueryClient` for stale partial disk snapshots that should stay provisional until the API returns.
+```tsx
+import { useQuery } from "@tanstack/react-query";
+import { DeviProvider } from "devi/react";
+import { deviQueryFn, read } from "devi/react-query";
 
-### `read()` helper
+const key = `post:${id}`;
 
-```ts
-import { read } from 'devi-cache';
-
-read(cache, key, options?)
+useQuery({
+  queryKey: ["post", id],
+  placeholderData: () => read<Post>(key),
+  queryFn: deviQueryFn(key, () => api.getPost(id)),
+  staleTime: 30_000,
+});
 ```
 
-Use in `placeholderData`, or anywhere you need a typed `cache.get` for Query seeding.
+### `useLocalFirstQuery`
+
+Same flow in one hook — seeds from devi, fetches in the background, write-throughs on success:
+
+```tsx
+import { useLocalFirstQuery } from "devi/react-query";
+
+const { data, isPlaceholderData, isFetching } = useLocalFirstQuery<Post>(
+  `post:${id}`,
+  ["post", id],
+  () => api.getPost(id),
+);
+```
 
 ### UI flags
 
 - **`isPlaceholderData`** — showing devi snapshot while fetch runs
-- **`isRefetching`** — background refresh; keep content on screen
+- **`isFetching`** — background refresh; keep content on screen
 
-### Reusable hook sketch
-
-```ts
-import { useQuery, type QueryKey } from '@tanstack/react-query';
-import { read, type ICache } from 'devi-cache';
-
-function useLocalFirstQuery<T>(
-  cache: ICache<T>,
-  deviKey: string,
-  queryKey: QueryKey,
-  fetcher: () => Promise<T>,
-) {
-  return useQuery({
-    queryKey,
-    placeholderData: () => read(cache, deviKey),
-    queryFn: async () => {
-      const fresh = await fetcher();
-      await cache.set(deviKey, fresh);
-      return fresh;
-    },
-    staleTime: 30_000,
-  });
-}
-```
+Browser example: `bun run usage` → http://localhost:8080/react-query
 
 ## Examples
 
-- `examples/basic.ts` — create cache, `set` / `get`
-- Run dev server: `bun --port=8080 --hot examples/server.ts`
-
-More integrations (Next.js RSC, streaming) will be added under `examples/`.
+| File | Run |
+|------|-----|
+| `usage/core.ts` | `bun run usage` → `/` (browser) |
+| `usage/react.tsx` | `bun run usage` → `/react` |
+| `usage/react-query.tsx` | `bun run usage` → `/react-query` |
 
 ## Further reading
 
