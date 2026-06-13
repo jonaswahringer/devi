@@ -35,9 +35,7 @@ await ops.set("user:1", {
 const entry = await ops.get("user:1");
 ```
 
-CLI example: `bun usage/core.ts`
-
-Run the dev server: `bun run usage` → http://localhost:8080/
+Browser example: `bun run usage` → http://localhost:8080/
 
 ## React (`devi/react`)
 
@@ -60,7 +58,7 @@ function Dashboard() {
 }
 ```
 
-Browser example: `bun usage/server.ts` → http://localhost:8080/react
+Browser example: `bun run usage` → http://localhost:8080/react
 
 ## TanStack Query (`devi/react-query`)
 
