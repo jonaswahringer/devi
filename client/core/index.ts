@@ -69,11 +69,6 @@ export function keys() {
   return requireDeviOps().keys();
 }
 
-/** Seed TanStack Query `placeholderData` from durable devi storage. */
-export function read(key: string) {
-  return requireDeviOps().get(key);
-}
-
 export type { DeviOps } from "./ops";
 export type { DeviValue, DeviWorkerType } from "./protocol";
 

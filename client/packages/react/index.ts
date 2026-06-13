@@ -2,17 +2,10 @@ export { DeviProvider, useDevi } from "./provider";
 export type { DeviProviderProps } from "./provider";
 
 export {
-  get,
-  set,
-  del,
-  del as delete,
-  clear,
-  size,
-  keys,
-  read,
-  createDevi,
-  bindOps,
-  type DeviOps,
+  bindOps, clear, createDevi, del,
+  del as delete, get, keys,
+  set, size, type DeviOps,
   type DeviValue,
-  type DeviWorkerType,
+  type DeviWorkerType
 } from "../../core/index";
+
