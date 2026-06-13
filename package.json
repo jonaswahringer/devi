@@ -1,23 +1,8 @@
 {
   "name": "devi",
-  "devDependencies": {
-    "@tanstack/react-query": "^5.101.0",
-    "@types/bun": "latest",
-    "@types/react": "^19.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "peerDependencies": {
-    "react": ">=18",
-    "@tanstack/react-query": "^5.101.0"
-  },
-  "exports": {
-    ".": "./client/core/index.ts",
-    "./core": "./client/core/index.ts",
-    "./react": "./client/packages/react/index.ts",
-    "./react-query": "./client/packages/react-query/index.ts"
-  },
   "private": true,
+  "workspaces": ["packages/*"],
+  "type": "module",
   "scripts": {
     "test": "bun test",
     "test:unit": "bun test tests/unit",
@@ -26,5 +11,14 @@
     "test:concurrency": "bun test tests/concurrency",
     "usage": "bun usage/server.ts"
   },
-  "type": "module"
+  "devDependencies": {
+    "@devi/core": "workspace:*",
+    "@devi/react": "workspace:*",
+    "@devi/react-query": "workspace:*",
+    "@tanstack/react-query": "^5.101.0",
+    "@types/bun": "latest",
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
 }

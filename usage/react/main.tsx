@@ -1,12 +1,11 @@
 /**
- * React provider usage — DeviProvider + imperative ops via context helpers.
+ * @devi/react — DeviProvider + context helpers.
  *
- * Run the dev server: bun usage/server.ts
- * Open: http://localhost:<port>/react
+ * Dev server: bun run usage → http://localhost:8080/react
  */
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { DeviProvider, get, set, useDevi } from "devi/react";
+import { DeviProvider, get, set, useDevi } from "@devi/react";
 
 function CachePanel() {
   const ops = useDevi();
@@ -23,13 +22,13 @@ function CachePanel() {
 
       const entry = await get("demo:key");
       setValue(entry?.value ? String(entry.value) : "(empty)");
-      console.log("[devi/react] ops instance", ops);
+      console.log("[@devi/react] ops instance", ops);
     })();
   }, [ops]);
 
   return (
     <section>
-      <h2>devi/react</h2>
+      <h2>Context helpers</h2>
       <p>
         Value from <code>get("demo:key")</code>: {value}
       </p>

@@ -1,5 +1,4 @@
-import type { DeviOps } from "../../core/ops";
-import type { DeviValue } from "../../core/protocol";
+import type { DeviOps, DeviValue } from "@devi/core";
 
 let registeredOps: DeviOps | null = null;
 

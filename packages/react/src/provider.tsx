@@ -1,9 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useMemo } from "react";
-import { createDevi, type DeviOps } from "../../core/index";
+import { createDevi, type DeviOps, type DeviWorkerType } from "@devi/core";
 import { registerDeviOps } from "./context";
-import type { DeviWorkerType } from "../../core/protocol";
 
 const DeviContext = createContext<DeviOps | undefined>(undefined);
 

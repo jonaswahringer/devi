@@ -2,26 +2,33 @@
 
 ## Install
 
-Install devi from this repo (or your published package). React and TanStack Query are **peers** for the adapter subpaths:
+Install only the packages you need:
 
 ```bash
-npm install react @tanstack/react-query
+# Core only — no React
+npm install @devi/core
+
+# React adapter
+npm install @devi/react
+
+# TanStack Query integration (pulls in @devi/react + @devi/core)
+npm install @devi/react-query
 ```
 
-## Package entry points
+Each package declares its own peers. **`@devi/core` has none.**
 
-| Import | Use when |
-|--------|----------|
-| `devi` / `devi/core` | Framework-free — workers, `createDevi`, direct `DeviOps` |
-| `devi/react` | React app — `<DeviProvider>`, context helpers (`get`, `set`, …) |
-| `devi/react-query` | TanStack Query — `read`, `deviQueryFn`, `useLocalFirstQuery` |
+| Package | Peers |
+|---------|-------|
+| `@devi/core` | — |
+| `@devi/react` | `react >=18` |
+| `@devi/react-query` | `react >=18`, `@tanstack/react-query ^5` |
 
-## Core (`devi/core`)
+## Core (`@devi/core`)
 
 No React required. Create an ops instance and call it directly:
 
 ```ts
-import { createDevi } from "devi/core";
+import { createDevi } from "@devi/core";
 
 const ops = createDevi("web");
 
@@ -35,14 +42,14 @@ await ops.set("user:1", {
 const entry = await ops.get("user:1");
 ```
 
-Browser example: `bun run usage` → http://localhost:8080/
+Browser example: `bun run usage` → http://localhost:8080/vanilla
 
-## React (`devi/react`)
+## React (`@devi/react`)
 
 Wrap your app once. Context helpers throw if used outside the provider:
 
 ```tsx
-import { DeviProvider, get, set, useDevi } from "devi/react";
+import { DeviProvider, get, set, useDevi } from "@devi/react";
 
 function App() {
   return (
@@ -53,14 +60,14 @@ function App() {
 }
 
 function Dashboard() {
-  const ops = useDevi(); // or get/set from "devi/react"
+  const ops = useDevi(); // or get/set from "@devi/react"
   // ...
 }
 ```
 
 Browser example: `bun run usage` → http://localhost:8080/react
 
-## TanStack Query (`devi/react-query`)
+## TanStack Query (`@devi/react-query`)
 
 Requires `<DeviProvider>` above your query tree (same as `QueryClientProvider`).
 
@@ -78,8 +85,8 @@ TanStack Query does **not** persist `placeholderData`. Only devi should hold dat
 
 ```tsx
 import { useQuery } from "@tanstack/react-query";
-import { DeviProvider } from "devi/react";
-import { deviQueryFn, read } from "devi/react-query";
+import { DeviProvider } from "@devi/react";
+import { deviQueryFn, read } from "@devi/react-query";
 
 const key = `post:${id}`;
 
@@ -96,7 +103,7 @@ useQuery({
 Same flow in one hook — seeds from devi, fetches in the background, write-throughs on success:
 
 ```tsx
-import { useLocalFirstQuery } from "devi/react-query";
+import { useLocalFirstQuery } from "@devi/react-query";
 
 const { data, isPlaceholderData, isFetching } = useLocalFirstQuery<Post>(
   `post:${id}`,
@@ -114,11 +121,11 @@ Browser example: `bun run usage` → http://localhost:8080/react-query
 
 ## Examples
 
-| File | Run |
-|------|-----|
-| `usage/core.ts` | `bun run usage` → `/` (browser) |
-| `usage/react.tsx` | `bun run usage` → `/react` |
-| `usage/react-query.tsx` | `bun run usage` → `/react-query` |
+| Folder | Run |
+|--------|-----|
+| `usage/vanilla/` | `bun run usage` → `/vanilla` |
+| `usage/react/` | `bun run usage` → `/react` |
+| `usage/react-query/` | `bun run usage` → `/react-query` |
 
 ## Further reading
 

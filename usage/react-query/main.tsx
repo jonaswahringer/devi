@@ -1,18 +1,17 @@
 /**
- * TanStack Query integration — local-first reads with devi write-through.
+ * @devi/react-query — TanStack Query integration.
  *
- * Run the dev server: bun usage/server.ts
- * Open: http://localhost:<port>/react-query
+ * Dev server: bun run usage → http://localhost:8080/react-query
  */
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createRoot } from "react-dom/client";
-import { DeviProvider } from "devi/react";
+import { DeviProvider } from "@devi/react";
 import {
   deviQueryFn,
   read,
   useLocalFirstQuery,
-} from "devi/react-query";
+} from "@devi/react-query";
 
 type Post = { id: number; title: string; body: string };
 
@@ -27,7 +26,6 @@ async function fetchPost(): Promise<Post> {
   return res.json() as Promise<Post>;
 }
 
-/** Manual pattern: compose `read` + `deviQueryFn` yourself. */
 function ManualPost() {
   const { data, isPlaceholderData, isFetching } = useQuery({
     queryKey: ["post-manual", POST_ID],
@@ -48,7 +46,6 @@ function ManualPost() {
   );
 }
 
-/** Convenience hook — seeds from devi, fetches, write-throughs automatically. */
 function LocalFirstPost() {
   const { data, isPlaceholderData, isFetching } = useLocalFirstQuery<Post>(
     DEVI_KEY,
@@ -76,7 +73,8 @@ function App() {
     <QueryClientProvider client={client}>
       <DeviProvider>
         <main style={{ fontFamily: "system-ui", padding: "1.5rem" }}>
-          <h1>devi/react-query</h1>
+          <p><a href="/">← all examples</a></p>
+          <h1>@devi/react-query</h1>
           <ManualPost />
           <LocalFirstPost />
         </main>

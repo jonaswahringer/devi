@@ -1,4 +1,4 @@
-import { WebWorkerHost } from "../platforms/web";
+import { WebWorkerHost } from "./platforms/web";
 import { DeviRequest, DeviWorker, DeviWorkerType } from "./protocol";
 
 export class WorkerPool {

@@ -1,4 +1,4 @@
-import { DeviWorker, DeviWorkerHost, DeviWorkerReply } from "../core/protocol";
+import { DeviWorker, DeviWorkerHost, DeviWorkerReply } from "../protocol";
 
 export class WebWorkerHost implements DeviWorkerHost {
 

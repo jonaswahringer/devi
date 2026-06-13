@@ -49,6 +49,14 @@ Recommended split:
 
 Query owns the request lifecycle. devi owns what survives a tab close or app restart. Use **`read()`** from devi to seed `placeholderData`, **`cache.set`** after a successful `queryFn`, and **`isPlaceholderData` / `isRefetching`** in the UI for honesty about freshness.
 
+## Packages
+
+| Package | Install when |
+|---------|----------------|
+| `@devi/core` | Framework-free storage — no React peers |
+| `@devi/react` | React provider + context helpers (`react >=18`) |
+| `@devi/react-query` | TanStack Query integration |
+
 Full setup, code, and anti-patterns: **[USAGE.md](./USAGE.md)**.
 
 ---

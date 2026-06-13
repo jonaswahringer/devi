@@ -11,7 +11,7 @@
 
 
 
-import { get, requireDeviOps, set } from "../react/context";
+import { get, set } from "@devi/react";
 import type {
   DeviFetchContext,
   DeviFetchResult,
@@ -24,7 +24,7 @@ export async function read<T>(
   key: string,
   options?: DeviQueryOptions<T>,
 ): Promise<T | undefined> {
-  const entry = await requireDeviOps().get(key);
+  const entry = await get(key);
   return resolveEntry(entry, options);
 }
 

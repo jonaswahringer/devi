@@ -8,5 +8,5 @@
     "noEmit": true,
     "types": ["bun-types"]
   },
-  "include": ["src/**/*", "usage/**/*", "tests/**/*"]
+  "include": ["packages/**/*", "src/**/*", "usage/**/*", "tests/**/*"]
 }

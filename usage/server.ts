@@ -1,14 +1,16 @@
 import index from "./index.html";
-import reactPage from "./react.html";
-import reactQueryPage from "./react-query.html";
+import vanilla from "./vanilla/index.html";
+import react from "./react/index.html";
+import reactQuery from "./react-query/index.html";
 
 const server = Bun.serve({
   development: true,
   port: 8080,
   routes: {
     "/": index,
-    "/react": reactPage,
-    "/react-query": reactQueryPage,
+    "/vanilla": vanilla,
+    "/react": react,
+    "/react-query": reactQuery,
   },
 });
 

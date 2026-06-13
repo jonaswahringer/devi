@@ -5,11 +5,36 @@
     "": {
       "name": "devi-cache",
       "devDependencies": {
+        "@devi/core": "workspace:*",
+        "@devi/react": "workspace:*",
+        "@devi/react-query": "workspace:*",
         "@tanstack/react-query": "^5.101.0",
         "@types/bun": "latest",
         "@types/react": "^19.0.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+      },
+    },
+    "packages/core": {
+      "name": "@devi/core",
+      "version": "0.0.0",
+    },
+    "packages/react": {
+      "name": "@devi/react",
+      "version": "0.0.0",
+      "dependencies": {
+        "@devi/core": "workspace:*",
+      },
+      "peerDependencies": {
+        "react": ">=18",
+      },
+    },
+    "packages/react-query": {
+      "name": "@devi/react-query",
+      "version": "0.0.0",
+      "dependencies": {
+        "@devi/core": "workspace:*",
+        "@devi/react": "workspace:*",
       },
       "peerDependencies": {
         "@tanstack/react-query": "^5.101.0",
@@ -18,6 +43,12 @@
     },
   },
   "packages": {
+    "@devi/core": ["@devi/core@workspace:packages/core"],
+
+    "@devi/react": ["@devi/react@workspace:packages/react"],
+
+    "@devi/react-query": ["@devi/react-query@workspace:packages/react-query"],
+
     "@tanstack/query-core": ["@tanstack/query-core@5.101.0", "", {}, "sha512-cQetA74EB+seWySv1TTKr828TnP0u39m6LykwDXIo84SNortpDkp30TMEjkqtYCNP9c40uT/iwl6MLiufEt0Ow=="],
 
     "@tanstack/react-query": ["@tanstack/react-query@5.101.0", "", { "dependencies": { "@tanstack/query-core": "5.101.0" }, "peerDependencies": { "react": "^18 || ^19" } }, "sha512-rLlJXSpkqfizLWgkR5+eLeIk0MvTx/meEIR7LRjxic+qxiQP8zVjq7BqQkiCMNLQBlLfuOLqqr6KO5GtrDlmSg=="],

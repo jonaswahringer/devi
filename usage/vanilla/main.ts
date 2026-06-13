@@ -1,9 +1,9 @@
 /**
- * Core-only usage — no React, no TanStack Query.
+ * @devi/core — vanilla usage, no React.
  *
- * Open via the dev server: bun usage/server.ts → http://localhost:8080/
+ * Dev server: bun run usage → http://localhost:8080/vanilla
  */
-import { createDevi } from "devi/core";
+import { createDevi } from "@devi/core";
 
 const ops = createDevi("web");
 
@@ -17,11 +17,11 @@ await ops.set("greeting", {
 const entry = await ops.get("greeting");
 const parsed = entry?.value ? JSON.parse(entry.value as string) : null;
 
-console.log("[devi/core] stored:", parsed);
-console.log("[devi/core] keys:", await ops.keys());
-console.log("[devi/core] size:", await ops.size());
+console.log("[@devi/core] stored:", parsed);
+console.log("[@devi/core] keys:", await ops.keys());
+console.log("[@devi/core] size:", await ops.size());
 
-const status = document.getElementById("core-status");
+const status = document.getElementById("status");
 if (status) {
   status.textContent = parsed
     ? `Stored: ${(parsed as { message: string }).message}`

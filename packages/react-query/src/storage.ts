@@ -7,7 +7,7 @@
  * 
  */
 
-import type { DeviValue } from "../../core/protocol";
+import type { DeviValue } from "@devi/core";
 
 export type DeviQueryOptions<T> = {
   serialize?: (data: T) => string;
