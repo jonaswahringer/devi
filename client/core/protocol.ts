@@ -15,7 +15,7 @@ export interface DeviRequest {
 export interface DeviValue {
     key: string;
     value?: string | Uint8Array;
-    expiresAt: number | null;
+    expiresAt?: number;
     lastAccessed: number;
     metadata: Record<string, unknown>;
 }

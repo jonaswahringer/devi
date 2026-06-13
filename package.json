@@ -1,10 +1,15 @@
 {
-  "name": "devi-cache",
+  "name": "devi",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/react": "^19.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=18"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./client/packages/react/index.ts",
+    "./core": "./client/core/index.ts"
   },
   "private": true,
   "scripts": {
