@@ -75,15 +75,9 @@ Full setup, code, and anti-patterns: **[USAGE.md](./USAGE.md)**.
 
 ---
 
-## Status & docs
+## Status
 
-- **Usage & examples:** [USAGE.md](./USAGE.md), `usage/`
-- **Prefetch, SWR, streaming research:** [docs/prefetch-and-streaming-research.md](./docs/prefetch-and-streaming-research.md)
-- **SQLite implementation guide:** [docs/sqlite-reference-implementation-guide.md](./docs/sqlite-reference-implementation-guide.md)
-
-**Supported today:** Chromium-based browsers; server (Bun); mobile via Expo (in progress). Safari/Firefox not targeted initially.
-
-Streaming cache type: planned.
+[] TODO
 
 ---
 
