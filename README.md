@@ -69,7 +69,7 @@ Full setup, code, and anti-patterns: **[USAGE.md](./USAGE.md)**.
 | **[TanStack DB](https://tanstack.com/db)** | Normalized collections, live queries, sync engines, client SQL | Broader local-first **database + sync** stack; devi is a thinner **cache adapter** under Query, not a replacement for Electric/PGlite-style sync |
 | **SWR + custom `provider`** | Stale-while-revalidate with a persisted `Map` | Same UX idea; devi adds multi-runtime storage (OPFS SQLite, Expo, Bun) and a explicit FE contract |
 | **`persistQueryClient`** | Dehydrate entire Query cache to localStorage | Good for session restore; devi gives **per-key** control, TTL/LRU on SQLite, and large payloads via blob stores |
-| **Raw `localStorage` / IndexedDB** | DIY persistence | devi standardizes groups, options, and platform picks via `CacheFactory` |
+| **Raw `localStorage` / IndexedDB** | DIY persistence | devi standardizes access via `dispatcher` |
 
 **Rule of thumb:** choose **TanStack DB** when you need client-side SQL, live relational queries, or a sync engine as the product core. Choose **devi + Query** when you have a normal REST/tRPC API and want **fast cached reads** with minimal new concepts.
 
